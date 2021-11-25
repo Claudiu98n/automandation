@@ -1,0 +1,121 @@
+// global styles
+@import './vars';
+
+@mixin img-fluid($max-width) {
+    width: 100%;
+    max-width: $max-width;
+    height: auto;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-end {
+    justify-content: end;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.justify-content-around {
+    justify-content: space-around;
+}
+
+.align-content-between {
+    align-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.gap-1 {
+    gap: 1rem;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.color-primary {
+    color: $color-primary;
+}
+
+.font-size-arrow {
+    font-size: 8px;
+    margin-left: 0.2rem;
+}
+
+.font-size-12 {
+    font-size: 12px;
+}
+
+.font-size-14 {
+    font-size: 14px;
+}
+
+.font-size-16 {
+    font-size: 16px;
+}
+
+.font-size-18 {
+    font-size: 18px;
+}
+
+.font-size-20 {
+    font-size: 20px;
+}
+
+.font-size-24 {
+    font-size: 24px;
+}
+
+.font-size-28 {
+    font-size: 28px;
+}
+
+.font-size-32 {
+    font-size: 32px;
+}
+
+.font-size-48 {
+    font-size: 48px;
+}
+
+.font-size-64 {
+    font-size: 64px;
+}
+
+// media querys
+
+@media screen and (max-width: 767px) {
+    .responsive-h3 {
+        font-size: 28px !important;
+    }
+
+    .responsive-h6 {
+        font-size: 22px;
+    }
+}

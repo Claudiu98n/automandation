@@ -1,0 +1,20 @@
+@import './automandation-template/vars';
+@import './automandation-template//index';
+
+.app {
+    .loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #ffffff;
+        z-index: 9999;
+        opacity: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
