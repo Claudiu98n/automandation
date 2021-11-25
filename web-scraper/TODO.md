@@ -1,0 +1,4 @@
+- [x] create web scraper using python
+- [x] get data in json objects
+- [ ] insert data in strapi
+- [ ] make scraper run through rotating proxies
