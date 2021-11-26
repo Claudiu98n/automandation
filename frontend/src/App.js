@@ -9,9 +9,13 @@ import './App.scss';
 // components
 import GoToTop from './components/goToTop/GoToTop';
 
+// private route
+import PrivateRoute from './components/privateRoute/PrivateRoute';
+
 // pages
 const SignIn = lazy (() => import ('./pages/signIn/SignIn'));
 const SignUp = lazy (() => import ('./pages/signUp/SignUp'));
+const ColdStart = lazy (() => import ('./pages/coldStart/ColdStart'));
 
 const App = () => {
   return (
@@ -27,6 +31,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={SignIn} />
           <Route path="/sign-up" exact component={SignUp} />
+          <PrivateRoute path="/cold-start" exact component={ColdStart} />
           {/* <Route path="*" exact component={Page404} /> */}
         </Switch>
       </Suspense>

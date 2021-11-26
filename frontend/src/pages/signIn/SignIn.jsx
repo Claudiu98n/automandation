@@ -62,7 +62,7 @@ const SignIn = () => {
           cogoToast.success('Autentificare cu succes');
           login(signIn.data.jwt);
           localStorage.setItem('user', JSON.stringify(signIn.data.user));
-          history.push('/cars-catalog');
+          history.push('/cold-start');
         };
       } catch(e) {
         console.log(e);
