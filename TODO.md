@@ -1,0 +1,16 @@
+- [x] create web scraper using python
+- [x] get data in json objects
+- [x] create .env.dev file
+- [x] create docker-compose file
+  - [x] postgres
+  - [x] pgadmin
+- [ ] make flask backend
+  - [x] create GET /cars
+  - [x] create POST /cars
+  - [ ] make backend work with db
+  - [ ] create register route
+  - [ ] create login route
+  - [ ] insert scraped data in postgres (the docker one)
+- [ ] convert frontend /register and /login to new flask routes
+- [ ] convert frontend GET to new flask routes
+- [ ] make scraper run through rotating proxies: https://geonode.com/free-proxy-list

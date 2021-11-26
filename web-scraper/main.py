@@ -2,6 +2,9 @@ from bs4 import BeautifulSoup
 import requests
 import json
 
+# TODO:
+# https://geonode.com/free-proxy-list
+
 page = requests.get("https://www.autovit.ro/autoturisme")
 soup = BeautifulSoup(page.content, 'html.parser')
 
