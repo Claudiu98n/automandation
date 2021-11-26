@@ -52,29 +52,33 @@ const SignIn = () => {
     const isPasswordValidated = validatePassword(data.get('password'));
     
     if (isEmailValidated && isPasswordValidated) {
-      try {
-        const signIn = await axios.post('http://localhost:1337/auth/local', {
-          identifier: data.get('email'),
-          password: data.get('password')
-        });
-  
-        if (signIn.status === 200) {
           cogoToast.success('Autentificare cu succes');
-          login(signIn.data.jwt);
-          localStorage.setItem('user', JSON.stringify(signIn.data.user));
-          history.push('/cold-start');
-        };
-      } catch(e) {
-        console.log(e);
-        if (e.response.status) {
-          switch (e.response.status) {
-            case 400:
-              return cogoToast.error('Email sau Parola gresite');
-            default:
-              return cogoToast.error("A avut loc o eroare neasteptata");
-          }
-        }
-      }
+          localStorage.setItem('user', JSON.stringify(data.get('email')));
+          history.push('/cars-catalogue');
+          
+      // try {
+      //   const signIn = await axios.post('http://localhost:1337/auth/local', {
+      //     identifier: data.get('email'),
+      //     password: data.get('password')
+      //   });
+  
+      //   if (signIn.status === 200) {
+      //     cogoToast.success('Autentificare cu succes');
+      //     login(signIn.data.jwt);
+      //     localStorage.setItem('user', JSON.stringify(signIn.data.user));
+      //     history.push('/cold-start');
+      //   };
+      // } catch(e) {
+      //   console.log(e);
+      //   if (e.response.status) {
+      //     switch (e.response.status) {
+      //       case 400:
+      //         return cogoToast.error('Email sau Parola gresite');
+      //       default:
+      //         return cogoToast.error("A avut loc o eroare neasteptata");
+      //     }
+      //   }
+      // }
     } else return;
   };
 
