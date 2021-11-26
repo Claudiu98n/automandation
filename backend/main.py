@@ -12,7 +12,7 @@ load_dotenv(env_path)
 
 POSTGRES_HOST = os.environ.get('POSTGRES_HOST')
 POSTGRES_USER = os.environ.get('POSTGRES_USER')
-POSTGRES_PASS = os.environ.get('POSTGRES_PASS')
+POSTGRES_PASS = os.environ.get('POSTGRES_PASSWORD')
 POSTGRES_DB = os.environ.get('POSTGRES_DB')
 POSTGRES_PORT = os.environ.get('POSTGRES_PORT')
 
@@ -21,33 +21,38 @@ with open('./../web-scraper/output_example.json', 'r') as f:
     example_cars = json.load(f)
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASS}@{POSTGRES_HOST}/{POSTGRES_DB}:{POSTGRES_PORT}'
+POSTGRES_URI = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASS}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}'
+print(POSTGRES_URI)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = POSTGRES_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
 class Car(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    manufacterer = db.Column(db.String(100))
+    manufacturer = db.Column(db.String(100))
     model = db.Column(db.String(100))
     year = db.Column(db.Integer)
     price = db.Column(db.Integer)
     url = db.Column(db.String(200))
     image_url = db.Column(db.String(800))
 
-
-    def __init__(self, id, manufacterer, model, year, price, url, image_url):
-        self.id = id
-        self.manufacterer = manufacterer
+    def __init__(self, manufacturer, model, year, price, url, image_url):
+        self.manufacturer = manufacturer
         self.model = model
         self.year = year
         self.price = price
         self.url = url
         self.image_url = image_url
 
-def make_json_response(object):
+    def to_json(self):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4)
+
+def find_one_response(input_content):
     return app.response_class(
-        response = json.dumps(object),
+        response = json.dumps(input_content),
         status = 200,
         mimetype = 'application/json'
     )
@@ -55,7 +60,15 @@ def make_json_response(object):
 @app.route("/cars", methods=["POST"])
 def bulk_create_cars():
     if request.method == 'POST':
-        return make_json_response({})
+        cars = request.get_json()
+        formatted_cars = []
+        for car in cars:
+            new_car = Car(**car)
+            db.session.add(new_car)
+            formatted_cars.append(new_car)
+
+        db.session.commit()
+        return find_one_response({})
 
 @app.route("/register")
 def register():
@@ -68,7 +81,8 @@ def login():
 @app.route("/cars")
 def get_cars():
     # TODO: make this fetch from Postgres
-    return make_json_response(example_cars)
+    Car.query.all()
+    return find_one_response(example_cars)
 
 if __name__ == '__main__':
     app.run()
