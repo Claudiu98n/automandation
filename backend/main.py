@@ -62,7 +62,8 @@ def find_one_response(input_content):
 @app.route("/cars", methods=["POST"])
 def bulk_create_cars():
     if request.method == 'POST':
-        cars = request.get_json()
+        cars = json.loads(request.data)
+
         formatted_cars = []
         for car in cars:
             new_car = Car(**car)

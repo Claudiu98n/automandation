@@ -16,7 +16,7 @@ for article in car_articles:
     new_car = {}
     details_div = article.select_one('div:first-child')
 
-    year_str = details_div.select_one('div:first-child ul li:first-child').text.strip()
+    year = int(details_div.select_one('div:first-child ul li:first-child').text.strip())
 
     full_model_name =  details_div.select_one('h2:first-child').text
     offer_url = details_div.select_one('h2:first-child a:first-child').attrs['href']
@@ -34,25 +34,23 @@ for article in car_articles:
         and "EUR" in tag.text
     ).text.strip().split(' ')
 
-    currency = price_arr.pop()
-
-    if len(price_arr) > 1:
-        price_str = ''.join(price_arr)
-    if len(price_arr) == 0:
-        price_str = price_arr[0]
-
-    price_str += ' ' + currency
+    price_arr.pop()
+    price = int(''.join(price_arr))
 
     scraped_cars.append({
         "url": offer_url,
         "manufacturer": manufacturer,
         "model": model,
-        "year": year_str,
-        "price": price_str,
+        "year": year,
+        "price": price,
         "image_url": image_url
     })
 
 print(scraped_cars)
 
-with open('./output_example.json', 'w') as json_file:
-    json.dump(scraped_cars, json_file)
+if len(scraped_cars) > 0:
+    with open('./output_example.json', 'w') as json_file:
+        json.dump(scraped_cars, json_file)
+
+    response = requests.post('http://localhost:5000/cars', data=json.dumps(scraped_cars))
+    print(response.status_code)
