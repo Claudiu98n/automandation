@@ -6,6 +6,7 @@ import json
 from dotenv import load_dotenv, load_ipython_extension
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS, cross_origin
 
 env_path = Path(__file__).parents[1] / '.env.dev'
 load_dotenv(env_path)
@@ -21,6 +22,7 @@ with open('./../web-scraper/output_example.json', 'r') as f:
     example_cars = json.load(f)
 
 app = Flask(__name__)
+CORS(app, support_credentials=True)
 POSTGRES_URI = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASS}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}'
 print(POSTGRES_URI)
 
@@ -79,6 +81,7 @@ def login():
     return
 
 @app.route("/cars")
+@cross_origin(supports_credentials=True)
 def get_cars():
     # TODO: make this fetch from Postgres
     Car.query.all()

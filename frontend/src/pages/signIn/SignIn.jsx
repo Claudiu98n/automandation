@@ -10,10 +10,10 @@ import Grid from '@mui/material/Grid';
 import CarRentalIcon from '@mui/icons-material/CarRental';
 import Typography from '@mui/material/Typography';
 import {useHistory} from 'react-router';
-import axios from 'axios';
-import cogoToast from 'cogo-toast';
 import {emailRegex, passwordRegex} from '../../utils/regex';
-import { login } from '../../utils/isLogin';
+import cogoToast from 'cogo-toast';
+// import axios from 'axios';
+// import { login } from '../../utils/isLogin';
 
 const SignIn = () => {
   const [emailError, setEmailError] = useState("");
