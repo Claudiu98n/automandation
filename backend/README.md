@@ -2,9 +2,10 @@
 ```
   cd backend/
   python -m venv backend-venv
-  source backend-venv/Scripts/activate
+  Windows:  source backend-venv/Scripts/activate
+  Linux:    source backend-venv/bin/activate
   pip install -r requirements.txt
   export FLASK_APP=main.py
   export FLASK_ENV=development
-  flask start
+  flask run
 ```
