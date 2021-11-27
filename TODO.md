@@ -9,10 +9,12 @@
   - [x] create POST /cars
   - [x] make backend work with db
   - [x] insert scraped data in postgres (the docker one)
+
+- [ ] make dockerfile for server
+- [ ] make dockerfile for scraper
+
 - [ ] think of a way to check if the stored deals were deleted in the process, and delete them from the db
-- [ ] 
-- [ ] convert frontend /register and /login to new flask routes
-- [ ] convert frontend GET to new flask routes
-- [ ] make scraper run through rotating proxies: https://geonode.com/free-proxy-list
 - [ ] create register route
 - [ ] create login route
+- [ ] add flask-migrate for db
+- [ ] make scraper run through rotating proxies: https://geonode.com/free-proxy-list
