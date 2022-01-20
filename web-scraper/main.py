@@ -52,5 +52,6 @@ if len(scraped_cars) > 0:
     with open('./output_example.json', 'w') as json_file:
         json.dump(scraped_cars, json_file)
 
-    response = requests.post('http://localhost:5000/cars', data=json.dumps(scraped_cars))
-    print(response.status_code)
+    for car in scraped_cars:
+        response = requests.post('http://localhost:1337/cars', data=car)
+        print(response.status_code)

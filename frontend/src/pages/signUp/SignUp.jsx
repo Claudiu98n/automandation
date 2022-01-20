@@ -94,7 +94,7 @@ const SignUp = () => {
 
     if (isEmailValidated && isPasswordValidated && isConfirmPasswordValidated && isFirstNameValidated && isLastNameValidated) {
       try {
-        const signUp = await axios.post(process.env.REACT_APP_BACKEND_URL + "/api/auth/local/register", {
+        const signUp = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/local/register", {
           firstName: data.get('firstName'),
           lastName: data.get('lastName'),
           email: data.get('email'),

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cars_datasets",
+  "info": {
+    "name": "cars-dataset"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "manufacturer": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "year": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "image_url": {
+      "type": "string"
+    }
+  }
+}

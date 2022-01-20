@@ -9,8 +9,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CarRentalIcon from '@mui/icons-material/CarRental';
 import Typography from '@mui/material/Typography';
-import {useHistory} from 'react-router';
-import {emailRegex, passwordRegex} from '../../utils/regex';
+import { useHistory } from 'react-router';
+import { emailRegex, passwordRegex } from '../../utils/regex';
 import cogoToast from 'cogo-toast';
 import axios from 'axios';
 import { login } from '../../utils/isLogin';
@@ -18,7 +18,7 @@ import { login } from '../../utils/isLogin';
 const SignIn = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const history = useHistory ();
+  const history = useHistory();
 
   const validateEmail = (email) => {
     let validated;
@@ -45,30 +45,30 @@ const SignIn = () => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault ();
-    const data = new FormData (event.currentTarget);
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
 
     const isEmailValidated = validateEmail(data.get('email'));
     const isPasswordValidated = validatePassword(data.get('password'));
-    
+
     if (isEmailValidated && isPasswordValidated) {
-          cogoToast.success('Autentificare cu succes');
-          localStorage.setItem('user', JSON.stringify(data.get('email')));
-          history.push('/cars-catalogue');
-          
+      cogoToast.success('Autentificare cu succes');
+      localStorage.setItem('user', JSON.stringify(data.get('email')));
+      history.push('/cars-catalogue');
+
       try {
-        const signIn = await axios.post(process.env.REACT_APP_BACKEND_URL + "/api/auth/local", {
+        const signIn = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/local", {
           identifier: data.get('email'),
           password: data.get('password')
         });
-  
+
         if (signIn.status === 200) {
           cogoToast.success('Autentificare cu succes');
           login(signIn.data.jwt);
           localStorage.setItem('user', JSON.stringify(signIn.data.user));
           history.push('/cold-start');
         };
-      } catch(e) {
+      } catch (e) {
         console.log(e);
         if (e.response.status) {
           switch (e.response.status) {
@@ -83,7 +83,7 @@ const SignIn = () => {
   };
 
   return (
-    <Grid container component="main" sx={{height: '100vh'}}>
+    <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
       <Grid
         item
@@ -111,13 +111,13 @@ const SignIn = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <CarRentalIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Autentificare
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -147,15 +147,15 @@ const SignIn = () => {
               color="secondary"
               fullWidth
               variant="contained"
-              sx={{mt: 3, mb: 2}}
+              sx={{ mt: 3, mb: 2 }}
             >
               Autentificare
             </Button>
             <Grid container>
               <Grid item>
                 <Link
-                  onClick={() => history.push ('/sign-up')}
-                  sx={{cursor: 'pointer'}}
+                  onClick={() => history.push('/sign-up')}
+                  sx={{ cursor: 'pointer' }}
                   variant="body2"
                 >
                   {"Nu aveti cont? Creati unul"}

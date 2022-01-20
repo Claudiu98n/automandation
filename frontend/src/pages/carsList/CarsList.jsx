@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import CarRentalIcon from '@mui/icons-material/CarRental';
 import Card from '@mui/material/Card';
@@ -10,34 +10,41 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import CircleLoader from 'react-spinners/CircleLoader';
 
-const theme = createTheme ();
+const theme = createTheme();
 
 const CarsList = () => {
-  const [cars, setCars] = useState ([]);
-  const [loading, setLoading] = useState (true);
+  const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // useEffect (() => {
-  //   const fetchCars = async () => {
-  //     try {
-  //       const carsReq = await axios.get ('http://localhost:5000/cars');
-  //       if (carsReq.status === 200) {
-  //         setCars (carsReq.data);
-  //       }
-  //     } catch (e) {
-  //       console.log (e);
-  //       cogoToast.erorr ('Oopps.. Something went wrong');
-  //     } finally {
-  //       setLoading (false);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const carsReq = await axios.get(
+          process.env.REACT_APP_BACKEND_URL + "/cars",
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+        });
 
-  //   fetchCars ();
-  // }, []);
+        if (carsReq.status === 200) {
+          setCars(carsReq.data);
+        }
+      } catch (e) {
+        console.log(e);
+        cogoToast.error('Oopps.. Something went wrong');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCars();
+  }, []);
 
   let toRender;
 
@@ -48,18 +55,18 @@ const CarsList = () => {
       </div>
     );
   } else if (cars.length > 0) {
-    toRender = cars.map ((car, index) => (
+    toRender = cars.map((car, index) => (
       <Grid item key={index} xs={12} sm={6} md={4}>
-        <Card sx={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
           <CardMedia
-            sx={{  
+            sx={{
               height: '200px'
             }}
             component="img"
             image={car.image_url}
             alt="random"
           />
-          <CardContent sx={{flexGrow: 1}}>
+          <CardContent sx={{ flexGrow: 1 }}>
             <Typography
               gutterBottom
               fontWeight="bo"
@@ -83,7 +90,7 @@ const CarsList = () => {
     ));
   } else {
     toRender = (
-      <Box sx={{height: 'calc(100vh - 250px)'}}>
+      <Box sx={{ height: 'calc(100vh - 250px)' }}>
         <Typography align="center">There are no cars available.</Typography>
       </Box>
     );
@@ -94,14 +101,14 @@ const CarsList = () => {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <CarRentalIcon sx={{mr: 2}} />
+          <CarRentalIcon sx={{ mr: 2 }} />
           <Typography variant="h6" color="inherit" noWrap>
             Cars Catalogue
           </Typography>
         </Toolbar>
       </AppBar>
       <main>
-        <Container sx={{py: 8}} maxWidth="md">
+        <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
             {toRender}
@@ -109,7 +116,7 @@ const CarsList = () => {
         </Container>
       </main>
       {/* Footer */}
-      <Box sx={{bgcolor: 'primary.main', p: 6}} component="footer">
+      <Box sx={{ bgcolor: 'primary.main', p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
           Automandation
         </Typography>

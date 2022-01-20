@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/cars",
+      "handler": "cars-dataset.getCars",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "handler": "cars-dataset.createCar",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cars-datasets",
+      "handler": "cars-dataset.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cars-datasets/count",
+      "handler": "cars-dataset.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cars-datasets/:id",
+      "handler": "cars-dataset.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/cars-datasets",
+      "handler": "cars-dataset.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/cars-datasets/:id",
+      "handler": "cars-dataset.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars-datasets/:id",
+      "handler": "cars-dataset.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
