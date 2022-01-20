@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Pagination from '@mui/material/Pagination';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
@@ -20,6 +21,11 @@ const theme = createTheme();
 const CarsList = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const paginate = pageNumber => {
+    setCurrentPage(pageNumber);
+  }
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -46,6 +52,12 @@ const CarsList = () => {
     fetchCars();
   }, []);
 
+  const carsPerPage = 30;
+  const count = Math.ceil(cars.length / carsPerPage);
+  const lastCarIndex = currentPage * carsPerPage;
+  const firstCarIndex = lastCarIndex - carsPerPage;
+  const currentCars = cars.slice(firstCarIndex, lastCarIndex);
+
   let toRender;
 
   if (loading) {
@@ -55,7 +67,7 @@ const CarsList = () => {
       </div>
     );
   } else if (cars.length > 0) {
-    toRender = cars.map((car, index) => (
+    toRender = currentCars.map((car, index) => (
       <Grid item key={index} xs={12} sm={6} md={4}>
         <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
           <CardMedia
@@ -120,6 +132,14 @@ const CarsList = () => {
           <Grid container spacing={4}>
             {toRender}
           </Grid>
+          <Pagination
+            sx={{ mt: 5 }}
+            count={count}
+            color="primary"
+            page={currentPage}
+            color="primary"
+            onChange={(_, value) => paginate(value)}
+          />
         </Container>
       </main>
       {/* Footer */}
