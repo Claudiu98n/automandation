@@ -30,7 +30,7 @@ const CarsList = () => {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("jwt"),
             },
-        });
+          });
 
         if (carsReq.status === 200) {
           setCars(carsReq.data);
@@ -101,10 +101,17 @@ const CarsList = () => {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <CarRentalIcon sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Cars Catalogue
-          </Typography>
+          <Box width="100%" display="flex" justifyContent="space-between" alignItems="center" flexWrap="wrap">
+            <Box display="flex" alignItems="center">
+              <CarRentalIcon sx={{ mr: 2 }} />
+              <Typography variant="h6" color="inherit" noWrap>
+                Cars Catalogue
+              </Typography>
+            </Box>
+            <Typography variant="h6" color="inherit" noWrap>
+              Hello, {JSON.parse(localStorage.getItem("user")).username}!
+            </Typography>
+          </Box>
         </Toolbar>
       </AppBar>
       <main>
@@ -117,13 +124,13 @@ const CarsList = () => {
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: 'primary.main', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Automandation
+        <Typography variant="h6" align="center" color="white" gutterBottom>
+          &#169; Automandation
         </Typography>
         <Typography
           variant="subtitle1"
           align="center"
-          color="text.secondary"
+          color="white"
           component="p"
         >
           Web app which recommends you a car

@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "cars_datasets",
   "info": {
-    "name": "cars-dataset"
+    "name": "cars-dataset",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -27,6 +28,18 @@
       "type": "integer"
     },
     "image_url": {
+      "type": "string"
+    },
+    "mileage": {
+      "type": "integer"
+    },
+    "cylinderCapacity": {
+      "type": "integer"
+    },
+    "fuelType": {
+      "type": "string"
+    },
+    "location": {
       "type": "string"
     }
   }
