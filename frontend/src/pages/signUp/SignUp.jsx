@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CarRentalIcon from '@mui/icons-material/CarRental';
 import Typography from '@mui/material/Typography';
-import {useHistory} from 'react-router';
+import { useHistory } from 'react-router';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import { emailRegex, passwordRegex } from '../../utils/regex';
@@ -20,7 +20,7 @@ const SignUp = () => {
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
-  const history = useHistory ();
+  const history = useHistory();
 
   const validateEmail = (email) => {
     let validated;
@@ -83,8 +83,8 @@ const SignUp = () => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault ();
-    const data = new FormData (event.currentTarget);
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
 
     const isEmailValidated = validateEmail(data.get('email'));
     const isPasswordValidated = validatePassword(data.get('password'));
@@ -94,19 +94,19 @@ const SignUp = () => {
 
     if (isEmailValidated && isPasswordValidated && isConfirmPasswordValidated && isFirstNameValidated && isLastNameValidated) {
       try {
-        const signUp = await axios.post('http://localhost:1337/auth/local/register', {
-          firstName: data.get ('firstName'),
-          lastName: data.get ('lastName'),
-          email: data.get ('email'),
+        const signUp = await axios.post(process.env.REACT_APP_BACKEND_URL + "/api/auth/local/register", {
+          firstName: data.get('firstName'),
+          lastName: data.get('lastName'),
+          email: data.get('email'),
           username: data.get('email').split('@')[0],
-          password: data.get ('password'),
+          password: data.get('password'),
         });
-  
+
         if (signUp.status === 200) {
           cogoToast.success('Cont creat cu succes! Va puteti autentifica.');
           history.push('/');
         };
-      } catch(e) {
+      } catch (e) {
         console.log(e);
         if (e.response.status) {
           switch (e.response.status) {
@@ -119,7 +119,7 @@ const SignUp = () => {
   };
 
   return (
-    <Grid container component="main" sx={{height: '100vh'}}>
+    <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
       <Grid
         item
@@ -147,18 +147,18 @@ const SignUp = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <CarRentalIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Creeaza cont
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <Box display="flex" justifyContent="space-between">
               <TextField
                 margin="normal"
                 required
-                sx={{width: '49%'}}
+                sx={{ width: '49%' }}
                 id="lastName"
                 label="Nume"
                 name="lastName"
@@ -170,7 +170,7 @@ const SignUp = () => {
               <TextField
                 margin="normal"
                 required
-                sx={{width: '49%'}}
+                sx={{ width: '49%' }}
                 id="firstName"
                 label="Prenume"
                 name="firstName"
@@ -218,7 +218,7 @@ const SignUp = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{mt: 3, mb: 2}}
+              sx={{ mt: 3, mb: 2 }}
               color="secondary"
             >
               Creeaza cont
@@ -226,8 +226,8 @@ const SignUp = () => {
             <Grid container>
               <Grid item>
                 <Link
-                  onClick={() => history.push ('/')}
-                  sx={{cursor: 'pointer'}}
+                  onClick={() => history.push('/')}
+                  sx={{ cursor: 'pointer' }}
                   variant="body2"
                 >
                   {'Aveti deja cont? Autentificati-va'}

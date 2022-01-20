@@ -33,7 +33,7 @@ const App = () => {
           <Route path="/" exact component={SignIn} />
           <Route path="/sign-up" exact component={SignUp} />
           <PrivateRoute path="/cold-start" exact component={ColdStart} />
-          <Route path="/cars-catalogue" exact component={CarsList} />
+          <PrivateRoute path="/cars-catalogue" exact component={CarsList} />
           {/* <Route path="*" exact component={Page404} /> */}
         </Switch>
       </Suspense>

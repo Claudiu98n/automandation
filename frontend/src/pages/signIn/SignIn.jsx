@@ -12,8 +12,8 @@ import Typography from '@mui/material/Typography';
 import {useHistory} from 'react-router';
 import {emailRegex, passwordRegex} from '../../utils/regex';
 import cogoToast from 'cogo-toast';
-// import axios from 'axios';
-// import { login } from '../../utils/isLogin';
+import axios from 'axios';
+import { login } from '../../utils/isLogin';
 
 const SignIn = () => {
   const [emailError, setEmailError] = useState("");
@@ -56,29 +56,29 @@ const SignIn = () => {
           localStorage.setItem('user', JSON.stringify(data.get('email')));
           history.push('/cars-catalogue');
           
-      // try {
-      //   const signIn = await axios.post('http://localhost:1337/auth/local', {
-      //     identifier: data.get('email'),
-      //     password: data.get('password')
-      //   });
+      try {
+        const signIn = await axios.post(process.env.REACT_APP_BACKEND_URL + "/api/auth/local", {
+          identifier: data.get('email'),
+          password: data.get('password')
+        });
   
-      //   if (signIn.status === 200) {
-      //     cogoToast.success('Autentificare cu succes');
-      //     login(signIn.data.jwt);
-      //     localStorage.setItem('user', JSON.stringify(signIn.data.user));
-      //     history.push('/cold-start');
-      //   };
-      // } catch(e) {
-      //   console.log(e);
-      //   if (e.response.status) {
-      //     switch (e.response.status) {
-      //       case 400:
-      //         return cogoToast.error('Email sau Parola gresite');
-      //       default:
-      //         return cogoToast.error("A avut loc o eroare neasteptata");
-      //     }
-      //   }
-      // }
+        if (signIn.status === 200) {
+          cogoToast.success('Autentificare cu succes');
+          login(signIn.data.jwt);
+          localStorage.setItem('user', JSON.stringify(signIn.data.user));
+          history.push('/cold-start');
+        };
+      } catch(e) {
+        console.log(e);
+        if (e.response.status) {
+          switch (e.response.status) {
+            case 400:
+              return cogoToast.error('Email sau Parola gresite');
+            default:
+              return cogoToast.error("A avut loc o eroare neasteptata");
+          }
+        }
+      }
     } else return;
   };
 

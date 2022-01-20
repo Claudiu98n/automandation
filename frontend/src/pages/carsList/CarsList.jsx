@@ -21,23 +21,23 @@ const CarsList = () => {
   const [cars, setCars] = useState ([]);
   const [loading, setLoading] = useState (true);
 
-  useEffect (() => {
-    const fetchCars = async () => {
-      try {
-        const carsReq = await axios.get ('http://localhost:5000/cars');
-        if (carsReq.status === 200) {
-          setCars (carsReq.data);
-        }
-      } catch (e) {
-        console.log (e);
-        cogoToast.erorr ('Oopps.. Something went wrong');
-      } finally {
-        setLoading (false);
-      }
-    };
+  // useEffect (() => {
+  //   const fetchCars = async () => {
+  //     try {
+  //       const carsReq = await axios.get ('http://localhost:5000/cars');
+  //       if (carsReq.status === 200) {
+  //         setCars (carsReq.data);
+  //       }
+  //     } catch (e) {
+  //       console.log (e);
+  //       cogoToast.erorr ('Oopps.. Something went wrong');
+  //     } finally {
+  //       setLoading (false);
+  //     }
+  //   };
 
-    fetchCars ();
-  }, []);
+  //   fetchCars ();
+  // }, []);
 
   let toRender;
 
