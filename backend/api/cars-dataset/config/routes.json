@@ -1,6 +1,14 @@
 {
   "routes": [
     {
+      "method": "POST",
+      "path": "/coldStartFilter",
+      "handler": "cars-dataset.coldStartFilter",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "GET",
       "path": "/cars",
       "handler": "cars-dataset.getCars",

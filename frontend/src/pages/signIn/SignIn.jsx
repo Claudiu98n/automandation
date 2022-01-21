@@ -52,10 +52,6 @@ const SignIn = () => {
     const isPasswordValidated = validatePassword(data.get('password'));
 
     if (isEmailValidated && isPasswordValidated) {
-      cogoToast.success('Autentificare cu succes');
-      localStorage.setItem('user', JSON.stringify(data.get('email')));
-      history.push('/cars-catalogue');
-
       try {
         const signIn = await axios.post(process.env.REACT_APP_BACKEND_URL + "/auth/local", {
           identifier: data.get('email'),

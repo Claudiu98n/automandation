@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_preferences",
+  "info": {
+    "name": "user-preferences"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "startYear": {
+      "type": "integer"
+    },
+    "fuelType": {
+      "type": "string"
+    },
+    "startPrice": {
+      "type": "integer"
+    },
+    "endPrice": {
+      "type": "integer"
+    },
+    "startMileage": {
+      "type": "integer"
+    },
+    "endMileage": {
+      "type": "integer"
+    },
+    "user": {
+      "via": "user_preference",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

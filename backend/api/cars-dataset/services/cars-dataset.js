@@ -14,4 +14,28 @@ module.exports = {
         return carsDataset;
     },
 
+    async coldStartFilter(ctx) {
+        const userPreference = await strapi.services['user-preferences'].find({
+            user: ctx.state.user.id
+        });
+
+        const { startYear, fuelType, startPrice, endPrice, startMileage, endMileage } = userPreference[0];
+
+        let carsDataset = await strapi.services['cars-dataset'].find({_limit: -1});
+
+        carsDataset = carsDataset.filter(car => car.year >= startYear && car.year <= startYear + 5);
+
+        carsDataset = carsDataset.filter(car => car.fuelType === fuelType);
+
+        carsDataset = carsDataset.filter(car => car.price > startPrice && car.price < endPrice);
+
+        carsDataset = carsDataset.filter(car => car.mileage > startMileage && car.price < endMileage);
+
+        if (carsDataset.length > 5) {
+            carsDataset = carsDataset.splice(0, 5);
+        }
+        
+        return carsDataset;
+    }
+
 };

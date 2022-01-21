@@ -2,13 +2,12 @@ from bs4 import BeautifulSoup
 import requests
 import json
 
-# TODO:
 # https://geonode.com/free-proxy-list
 
 pageNumber = 1
 scraped_cars = []
 
-while pageNumber != 15:
+while pageNumber != 930:
     url = f"https://www.autovit.ro/autoturisme?page={pageNumber}"
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
@@ -17,53 +16,65 @@ while pageNumber != 15:
 
     # Set all_article_tags to all article tags of the soup
     for article in car_articles:
-        new_car = {}
-        details_div = article.select_one('div:first-child')
+        try:   
+            new_car = {}
+            details_div = article.select_one('div:first-child')
 
-        year = int(details_div.select_one('div:first-child ul li:first-child').text.strip())
-        mileage = (details_div.select_one('div:first-child ul li:nth-child(2)').text.strip()).replace(" ", "")[: -2]
-        cylinderCapacity = (details_div.select_one('div:first-child ul li:nth-child(3)').text.strip()).replace(" ", "")
+            ul = (details_div.select_one('div:first-child ul'))
+            counter = sum(1 for _ in ul.find_all('li'))
+            
+            if (counter != 4):
+                continue
 
-        if "Electric" in cylinderCapacity:
-            cylinderCapacity = 0
-            fuelType = "Electric"
-        else:
-            cylinderCapacity = cylinderCapacity[: -3]
-            fuelType = (details_div.select_one('div:first-child ul li:nth-child(4)').text.strip())
+            year = int(details_div.select_one('div:first-child ul li:first-child').text.strip())
+            mileage = (details_div.select_one('div:first-child ul li:nth-child(2)').text.strip()).replace(" ", "")[: -2]
+            cylinderCapacity = (details_div.select_one('div:first-child ul li:nth-child(3)').text.strip()).replace(" ", "")
 
-        location = (details_div.select_one('p:last-child').text.strip()).split(' ')[0]
+            if "Electric" in cylinderCapacity:
+                cylinderCapacity = 0
+                fuelType = "Electric"
+            elif "Hibrid" in cylinderCapacity:
+                cylinderCapacity = cylinderCapacity[: -3]
+                fuelType = "Hibrid"
+            else:
+                cylinderCapacity = cylinderCapacity[: -3]
+                fuelType = (details_div.select_one('div:first-child ul li:nth-child(4)').text.strip())
 
-        full_model_name =  details_div.select_one('h2:first-child').text
-        offer_url = details_div.select_one('h2:first-child a:first-child').attrs['href']
+            location = (details_div.select_one('p:last-child').text.strip()).split(' ')[0]
 
-        [manufacturer, *model_arr] = full_model_name.strip().split(' ')
-        model = ' '.join(model_arr)
+            full_model_name =  details_div.select_one('h2:first-child').text
+            offer_url = details_div.select_one('h2:first-child a:first-child').attrs['href']
 
-        image_url = article.find(
-            lambda tag: tag.name == "img"
-        ).attrs["src"]
+            [manufacturer, *model_arr] = full_model_name.strip().split(' ')
+            model = ' '.join(model_arr)
 
-        price_arr = article.find(lambda tag:
-            tag.name == "span" 
-            and tag.parent.name == "div"
-            and "EUR" in tag.text
-        ).text.strip().split(' ')
+            image_url = article.find(
+                lambda tag: tag.name == "img"
+            ).attrs["src"]
 
-        price_arr.pop()
-        price = int(''.join(price_arr))
+            price_arr = article.find(lambda tag:
+                tag.name == "span" 
+                and tag.parent.name == "div"
+                and "EUR" in tag.text
+            ).text.strip().split(' ')
 
-        scraped_cars.append({
-            "url": offer_url,
-            "manufacturer": manufacturer,
-            "model": model,
-            "year": year,
-            "price": price,
-            "image_url": image_url,
-            "mileage": int(mileage),
-            "cylinderCapacity": int(cylinderCapacity),
-            "fuelType": fuelType,
-            "location": location
-        })
+            price_arr.pop()
+            price = int(''.join(price_arr))
+
+            scraped_cars.append({
+                "url": offer_url,
+                "manufacturer": manufacturer,
+                "model": model,
+                "year": year,
+                "price": price,
+                "image_url": image_url,
+                "mileage": int(mileage),
+                "cylinderCapacity": int(cylinderCapacity),
+                "fuelType": fuelType,
+                "location": location
+            })
+        except:
+            pass
 
     print(pageNumber)
     pageNumber = pageNumber + 1

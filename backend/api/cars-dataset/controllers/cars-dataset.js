@@ -12,4 +12,9 @@ module.exports = {
         return result; 
     },
 
+    async coldStartFilter(ctx) {
+        const result = await strapi.services['cars-dataset'].coldStartFilter(ctx);
+        return result;
+    },
+
 };

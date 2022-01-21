@@ -43,7 +43,7 @@ const CarsList = () => {
         }
       } catch (e) {
         console.log(e);
-        cogoToast.error('Oopps.. Something went wrong');
+        cogoToast.error('A avut loc o eroare neasteptata');
       } finally {
         setLoading(false);
       }
@@ -135,7 +135,6 @@ const CarsList = () => {
           <Pagination
             sx={{ mt: 5 }}
             count={count}
-            color="primary"
             page={currentPage}
             color="primary"
             onChange={(_, value) => paginate(value)}
