@@ -45,8 +45,9 @@ const ColdStartRecommendations = () => {
       <div>
         <Typography variant="h6" mb={3}>Credem ca te-ar interesa:</Typography>
         <Carousel show={3.5} slide={3} swiping={true}>
-          {cars.map (car => (
+          {cars.map ((car, index) => (
             <CarItem
+              key={index}
               image_url={car.image_url}
               manufacturer={car.manufacturer}
               model={car.model}

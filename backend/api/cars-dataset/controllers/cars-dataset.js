@@ -17,4 +17,9 @@ module.exports = {
         return result;
     },
 
+    async getCarById(ctx) {
+        const result = await strapi.services['cars-dataset'].getCarById(ctx);
+        return result;
+    },
+
 };

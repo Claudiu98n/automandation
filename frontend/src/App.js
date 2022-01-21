@@ -17,6 +17,7 @@ const SignIn = lazy (() => import ('./pages/signIn/SignIn'));
 const SignUp = lazy (() => import ('./pages/signUp/SignUp'));
 const CarsList = lazy (() => import ('./pages/carsList/CarsList'));
 const ColdStart = lazy (() => import ('./pages/coldStart/ColdStart'));
+const CarDetailsPage = lazy (() => import ('./pages/carDetailsPage/CarDetailsPage'));
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/sign-up" exact component={SignUp} />
           <PrivateRoute path="/cold-start" exact component={ColdStart} />
           <PrivateRoute path="/cars-catalogue" exact component={CarsList} />
+          <PrivateRoute path="/cars-catalogue/:id" exact component={CarDetailsPage} />
           {/* <Route path="*" exact component={Page404} /> */}
         </Switch>
       </Suspense>

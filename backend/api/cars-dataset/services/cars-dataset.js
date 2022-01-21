@@ -3,7 +3,7 @@
 module.exports = {
 
     async getCars(ctx) {
-        const addedCar = await strapi.services['cars-dataset'].find({_limit: -1, _sort: 'created_at:DESC'});
+        const addedCar = await strapi.services['cars-dataset'].find({_limit: -1, _sort: 'created_at:ASC'});
 
         return addedCar;
     },
@@ -36,6 +36,14 @@ module.exports = {
         }
         
         return carsDataset;
+    },
+
+    async getCarById(ctx) {
+        const { id } = ctx.query;
+
+        const carDetails = await strapi.services['cars-dataset'].findOne({id});
+
+        return carDetails;
     }
 
 };

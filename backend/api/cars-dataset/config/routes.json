@@ -2,6 +2,14 @@
   "routes": [
     {
       "method": "GET",
+      "path": "/getCarById",
+      "handler": "cars-dataset.getCarById",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/coldStartFilter",
       "handler": "cars-dataset.coldStartFilter",
       "config": {

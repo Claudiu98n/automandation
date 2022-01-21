@@ -15,8 +15,8 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import CircleLoader from 'react-spinners/CircleLoader';
-import ColdStartRecommendations
-  from '../../components/coldStartRecommendations/ColdStartRecommendations';
+import ColdStartRecommendations from '../../components/coldStartRecommendations/ColdStartRecommendations';
+import {useHistory} from 'react-router-dom';
 
 const theme = createTheme ();
 
@@ -25,9 +25,15 @@ const CarsList = () => {
   const [loading, setLoading] = useState (true);
   const [currentPage, setCurrentPage] = useState (1);
 
+  const history = useHistory();
+
   const paginate = pageNumber => {
     setCurrentPage (pageNumber);
   };
+
+  const goToCarPage = (id) => {
+    history.push(`/cars-catalogue/${id}`);
+  }
 
   useEffect (() => {
     const fetchCars = async () => {
@@ -72,7 +78,7 @@ const CarsList = () => {
   } else if (cars.length > 0) {
     toRender = currentCars.map ((car, index) => (
       <Grid item key={index} xs={12} sm={6} md={4}>
-        <Card sx={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+        <Card onClick={() => goToCarPage(car.id)} sx={{height: '100%', display: 'flex', flexDirection: 'column', cursor: 'pointer'}}>
           <CardMedia
             sx={{
               height: '200px',
