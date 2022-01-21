@@ -1,10 +1,5 @@
 'use strict';
 
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-services)
- * to customize this service
- */
-
 module.exports = {
 
     async addToHistory(ctx) {
@@ -29,6 +24,14 @@ module.exports = {
                 cars_datasets: ctx.request.body.carId
             })
         }
+
+        return true;
+    },
+
+    async historyFilter(ctx) {
+        const history = await strapi.services['history'].find({_limit: -1});
+
+        // #TODO recommender
 
         return true;
     }

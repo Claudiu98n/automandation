@@ -12,4 +12,9 @@ module.exports = {
         return result; 
     },
 
+    async historyFilter(ctx) {
+        let result = await strapi.services['history'].historyFilter(ctx);
+        return result; 
+    },
+
 };

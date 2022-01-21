@@ -48,6 +48,7 @@ const ColdStartRecommendations = () => {
           {cars.map ((car, index) => (
             <CarItem
               key={index}
+              id={car.id}
               image_url={car.image_url}
               manufacturer={car.manufacturer}
               model={car.model}

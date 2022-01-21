@@ -3,10 +3,13 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import {useHistory} from 'react-router-dom';
 
-const CarItem = ({ image_url, manufacturer, model, year, price }) => {
+const CarItem = ({ id, image_url, manufacturer, model, year, price }) => {
+  const history = useHistory();
+  
   return (
-    <Card sx={{height: '100%', display: 'flex', flexDirection: 'column', mr: 2}}>
+    <Card onClick={() => history.push(`/cars-catalogue/${id}`)} sx={{height: '100%', display: 'flex', flexDirection: 'column', mr: 2}}>
       <CardMedia
         sx={{
           height: '200px'

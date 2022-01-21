@@ -27,7 +27,6 @@ const HistoryRecommendations = () => {
         }
       } catch (e) {
         console.log (e);
-        cogoToast.error ('A avut loc o eroare neasteptata');
       } finally {
         setLoadingCars (false);
       }
@@ -48,6 +47,7 @@ const HistoryRecommendations = () => {
           {cars.map ((car, index) => (
             <CarItem
               key={index}
+              id={car.id}
               image_url={car.image_url}
               manufacturer={car.manufacturer}
               model={car.model}

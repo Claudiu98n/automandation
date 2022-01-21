@@ -27,9 +27,9 @@ module.exports = {
 
         carsDataset = carsDataset.filter(car => car.fuelType === fuelType);
 
-        carsDataset = carsDataset.filter(car => car.price > startPrice && car.price < endPrice);
+        carsDataset = carsDataset.filter(car => car.price >= startPrice && car.price <= endPrice);
 
-        carsDataset = carsDataset.filter(car => car.mileage > startMileage && car.price < endMileage);
+        carsDataset = carsDataset.filter(car => car.mileage >= startMileage && car.price <= endMileage);
 
         if (carsDataset.length > 5) {
             carsDataset = carsDataset.splice(0, 5);

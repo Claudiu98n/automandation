@@ -1,6 +1,14 @@
 {
   "routes": [
     {
+      "method": "GET",
+      "path": "/historyFilter",
+      "handler": "history.historyFilter",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/addToHistory",
       "handler": "history.addToHistory",
