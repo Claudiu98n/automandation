@@ -62,6 +62,10 @@
     "user_preference": {
       "model": "user-preferences",
       "via": "user"
+    },
+    "history": {
+      "via": "users_permissions_user",
+      "model": "history"
     }
   }
 }

@@ -11,6 +11,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import CarRentalIcon from '@mui/icons-material/CarRental';
 import CarDetailsItem from '../../components/carDetailsItem/CarDetailsItem';
+import HistoryRecommendations from '../../components/historyRecommendations/HistoryRecommendations';
 import { useHistory } from 'react-router-dom';
 
 const theme = createTheme ();
@@ -24,6 +25,24 @@ const CarDetailsPage = () => {
 
   useEffect (
     () => {
+      // add product to user's history
+      const addToHistory = async () => {
+          try {
+            await axios.post (
+              process.env.REACT_APP_BACKEND_URL + '/addToHistory', {carId: params.id},
+              {
+                headers: {
+                  Authorization: 'Bearer ' + localStorage.getItem ('jwt'),
+                },
+              }
+            );
+          } catch (e) {
+            console.log (e);
+          }
+      };
+
+      addToHistory ();
+
       // get car details using id from url
       const fetchCar = async () => {
         if (params.id) {
@@ -115,6 +134,7 @@ const CarDetailsPage = () => {
         <Container sx={{py: 8}} maxWidth="md">
           {/* End hero unit */}
             {toRender}
+            <HistoryRecommendations />
         </Container>
       </main>
       {/* Footer */}
