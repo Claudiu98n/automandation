@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Container from '@mui/material/Container';
 import FormControl from '@mui/material/FormControl';
 import Typography from '@mui/material/Typography';
@@ -24,6 +24,32 @@ const ColdStart = () => {
   });
 
   const history = useHistory();
+
+  useEffect(() => {
+    const getUserDetails = async () => {
+      try {
+        const userDetailsReq = await axios.get (
+          process.env.REACT_APP_BACKEND_URL + '/users/me',
+          {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem ('jwt'),
+            },
+          }
+        );
+
+        if (userDetailsReq.status === 200) {
+          if (userDetailsReq.data.user_preference) {
+            history.push('/cars-catalogue');
+          }
+        }
+      } catch (e) {
+        console.log (e);
+      }
+    };
+
+    getUserDetails ();
+  }, [history]);
+  
 
   const handleSubmit = event => {
     event.preventDefault ();

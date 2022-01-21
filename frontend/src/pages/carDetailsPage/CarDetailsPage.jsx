@@ -11,7 +11,8 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import CarRentalIcon from '@mui/icons-material/CarRental';
 import CarDetailsItem from '../../components/carDetailsItem/CarDetailsItem';
-import HistoryRecommendations from '../../components/historyRecommendations/HistoryRecommendations';
+// import HistoryRecommendations from '../../components/historyRecommendations/HistoryRecommendations';
+import ColdStartRecommendations from '../../components/coldStartRecommendations/ColdStartRecommendations';
 import { useHistory } from 'react-router-dom';
 
 const theme = createTheme ();
@@ -134,7 +135,8 @@ const CarDetailsPage = () => {
         <Container sx={{py: 8}} maxWidth="md">
           {/* End hero unit */}
             {toRender}
-            <HistoryRecommendations />
+            <ColdStartRecommendations />
+            {/* <HistoryRecommendations /> */}
         </Container>
       </main>
       {/* Footer */}

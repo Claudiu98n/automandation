@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import {Carousel} from '@trendyol-js/react-carousel';
 import CarItem from '../carItem/CarItem';
 import axios from 'axios';
-import cogoToast from 'cogo-toast';
 
 const HistoryRecommendations = () => {
   const [cars, setCars] = useState ([]);
